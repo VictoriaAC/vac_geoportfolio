@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'gv._timeregular';
+    src: url('fonts/webfontkit-gv/gvtimeregular-al6jg-webfont.woff2') format('woff2'),
+         url('fonts/webfontkit-gv/gvtimeregular-al6jg-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+#Title, #cabbage {
+  font-family: 'gv._timeregular';
+  font-size: 80px;
+  color: #df6766;
+  text-align: center;
+}
+
+h3 {
+  color: #40a593;
+  text-align: center;
+}
+h3.a {
+  font-family: 'gv._timeregular';
+  font-size: 40px;
+  letter-spacing: 2px;
+  color: #f56c28;
+}
+
+h3.b {
+  font-family: 'Montserrat', sans-serif;
+  color: #fca240;
+  text-align: left;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
+}
+
+#heading1, #heading2, {
+  background-color: #f56c28;
+  font-family: 'Montserrat', sans-serif;
+   border-radius: 25px;
+   padding: 10px;
+   color: #B46E90;
+}
+#look {
+  color: #004f63;
+  font-family: 'Montserrat', sans-serif;
+  padding: 10px;
+  background-color: #40a593;
+  border-radius:25px;
+  text-align: center;
+}
+
+
+#list1, #list2 {
+   background-color: #ecdac6;
+   color: #B46E90;
+   border-radius: 25px;
+   padding: 10px;
+   line-height: 1.8;
+}
+
+
+#table {
+  margin-top: 50px;
+  color: #004f63;
+   border-radius: 25px;
+   margin-left: auto;
+   margin-right: auto;
+   margin-bottom: 200px;
+}
+th, td {
+  border: solid 4px #fc9627;
+  background-color: #fc9627;
+}
+
+body {
+  background-color: white;
+  max-width: 720px;
+  font-family: 'Montserrat', sans-serif;
+  margin: auto;
+}
+p {
+  color: #007890;
+  line-height: 1.8;
+  text-align: center;
+  margin-bottom: 50px;
+}

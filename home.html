@@ -1,0 +1,99 @@
+<html>
+<head>
+  <title>Portfolio Home</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+  <link href="portfolio.css" type="text/css" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+     // wait for the page to load before running the javascript
+     $(document).ready( function() {
+       // Create variable to hold map element, give initial settings to map
+       var map = L.map('map',{ center: [39.743218, -105.004568], zoom: 15});
+       var defaultBase = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png',
+                         { attribution: '© OpenStreetMap' }).addTo(map);
+       var myDataPoint = L.marker([39.743119, -105.002959]).addTo(map);
+       var myArea = L.polygon([[39.740652, -105.010233], [39.743218, -105.011864],
+                            [39.748473, -105.002487], [39.740283, -104.999037]],
+                                {color: 'blue', weight: 4}).addTo(map);
+
+
+
+
+       //add popup to object
+       myDataPoint.bindPopup ("<h3>Auraria Campus Library</h3><p>Denver, Colorado<br>Information about Auraria Library.</p>");
+       myArea.bindPopup ("<h3>Auraria Campus</h3>")
+
+       //lat/long on mouse click
+       var popup = L.popup();
+       function onMapClick(e) {
+         popup
+         .setLatLng(e.latlng)
+         .setContent("You clicked the map at "+ e.latlng.toString())
+         .openOn(map);
+       }
+       map.on('click', onMapClick);
+       //above, wait for a click event on the map
+
+       var basemaps = { "Default Basemap:": defaultBase };
+       var overlaymaps = { };
+       var layerMenu = L.control.layers(basemaps,overlaymaps).addTo(map);
+
+
+       var buildings;
+       $.getJSON("buildings.json",function(data){
+       	// add GeoJSON buildings to the map
+        //should add this file into same foldr as project
+       buildings = L.geoJson(data,{
+               onEachFeature: function (feature, layer) {
+                   layer.bindPopup("Building Type: " + feature.properties.BLDG_TYPE +
+                   "<br>Building Height: " +  feature.properties.BLDG_HEIGH +
+                   "<br>Ground Elevation: " + feature.properties.GROUND_ELE);
+           	}
+       	})
+        layerMenu.addOverlay(buildings, "Buildings");
+      });
+      //end of buildings
+
+       var parks;
+       $.getJSON("parks_denver.json",function(data){
+       parks = L.geoJson(data,{
+               onEachFeature: function (feature, layer) {
+                   layer.bindPopup(feature.properties.FORMAL_NAM);
+            }
+        })
+        layerMenu.addOverlay(parks, "Parks");  //replacing .addTo(map);
+      });
+      //end of parks
+
+
+
+      });
+      //end of doc ready function
+  </script>
+
+  <style>
+    #map { height: 80%; width: 95%; }
+    #maptitle { width: 100%; font-family: 'Montserrat', sans-serif; align-content: center;}
+
+  </style>
+
+
+</head>
+<body>
+
+  <div id="Title"><h1>A Web Site</h1></div>
+  <div id="heading1">
+    <p>This page is for my Web Mapping class (GIS 3410)</p>
+              <p>Here are some more words. Even more words. Bedoop beep boop.</p>
+  </div> <!-- end of heading1 -->
+    <div id="map"></div>
+
+
+
+</body>
+</html>
